@@ -154,6 +154,7 @@ async function createBooking(input, calApiKey, eventTypeId) {
 }
 
 async function checkRateLimit(kv, ip, sessionId) {
+  if (!kv) return true
   const now = new Date()
   const hour = `${now.getUTCFullYear()}-${now.getUTCMonth()}-${now.getUTCDate()}-${now.getUTCHours()}`
   const day = `${now.getUTCFullYear()}-${now.getUTCMonth()}-${now.getUTCDate()}`
@@ -243,3 +244,4 @@ export async function onRequestOptions() {
     }
   })
 }
+
