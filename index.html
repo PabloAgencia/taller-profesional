@@ -2817,5 +2817,22 @@ document.addEventListener('DOMContentLoaded', function(){
     if(hero) hero.style.paddingTop = '100px';
   });
 });
-</script></body>
+</script>
+
+<script>
+/* ── AUTO-OPEN CHATBOT (3s, una vez por sesión) ── */
+(function(){
+  if(sessionStorage.getItem('cb_auto_seen')) return;
+  var badge = document.getElementById('cb-badge');
+  setTimeout(function(){
+    if(sessionStorage.getItem('cb_auto_seen')) return;
+    sessionStorage.setItem('cb_auto_seen','1');
+    if(badge) badge.classList.add('show');
+    setTimeout(function(){
+      if(typeof window.openChatWithQuery === 'function') window.openChatWithQuery('');
+    }, 1200);
+  }, 3000);
+})();
+</script>
+</body>
 </html>
