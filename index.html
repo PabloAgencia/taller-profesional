@@ -2727,6 +2727,8 @@ document.addEventListener('DOMContentLoaded', function() {
     windowEl.classList.remove('cb-hidden');
     toggleBtn.style.transform = 'scale(0)';
     toggleBtn.style.opacity = '0';
+    const badgeEl = document.getElementById('cb-badge');
+    if (badgeEl) badgeEl.classList.remove('show');
   });
 
   closeBtn.addEventListener('click', () => {
@@ -2820,7 +2822,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 <script>
-/* ── AUTO-OPEN CHATBOT (3s, una vez por sesión) ── */
+/* ── AVISO DEL CHATBOT (3s, una vez por sesión) ── */
 (function(){
   if(sessionStorage.getItem('cb_auto_seen')) return;
   var badge = document.getElementById('cb-badge');
@@ -2828,9 +2830,6 @@ document.addEventListener('DOMContentLoaded', function(){
     if(sessionStorage.getItem('cb_auto_seen')) return;
     sessionStorage.setItem('cb_auto_seen','1');
     if(badge) badge.classList.add('show');
-    setTimeout(function(){
-      if(typeof window.openChatWithQuery === 'function') window.openChatWithQuery('');
-    }, 1200);
   }, 3000);
 })();
 </script>
