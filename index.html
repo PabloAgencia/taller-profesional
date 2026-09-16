@@ -1627,7 +1627,7 @@
       <span class="pb-label">Mantenimiento</span>
     </div>
     <div class="pb-img">
-      <img src="https://www.romaxautomotriz.com/wp-content/uploads/2022/09/diagnostico-electronicooo.png" alt="" loading="lazy"/>
+      <img src="https://images.pexels.com/photos/4116193/pexels-photo-4116193.jpeg?auto=compress&cs=tinysrgb&w=700&q=75" alt="" loading="lazy"/>
       <span class="pb-label">Diagnosis</span>
     </div>
     <div class="pb-img">
@@ -1668,7 +1668,7 @@
       <span class="pb-label">Mantenimiento</span>
     </div>
     <div class="pb-img">
-      <img src="https://www.romaxautomotriz.com/wp-content/uploads/2022/09/diagnostico-electronicooo.png" alt="" loading="lazy"/>
+      <img src="https://images.pexels.com/photos/4116193/pexels-photo-4116193.jpeg?auto=compress&cs=tinysrgb&w=700&q=75" alt="" loading="lazy"/>
       <span class="pb-label">Diagnosis</span>
     </div>
     <div class="pb-img">
@@ -2236,9 +2236,12 @@
 (function() {
   var statEls = document.querySelectorAll('.hstat-num');
   if (!statEls.length || !window.IntersectionObserver) return;
-  var stats = [
-    [statEls[2] || null, 0, 100, '+']
-  ];
+  // Solo anima el 3er stat si su texto es un número plano tipo "100+" — si se ha
+  // personalizado a algo tipo "24/7" o "12K", no lo pisa.
+  var thirdStat = statEls[2] || null;
+  var stats = (thirdStat && /^\d+\+?$/.test(thirdStat.textContent.trim()))
+    ? [[thirdStat, 0, parseInt(thirdStat.textContent, 10), '+']]
+    : [];
   function animCount(s) {
     if (!s[0]) return;
     var start = null, dur = 1400;
@@ -2704,7 +2707,10 @@ document.addEventListener('DOMContentLoaded', function() {
     showTyping();
 
     try {
-      const res = await fetch('/api/chat', {
+      const res = await /* El chat vive en workers.dev, no dentro de la propia web: asi sigue
+         respondiendo aunque los bloqueos de LaLiga tumben las IPs de
+         pages.dev, y funciona igual servida desde GitHub Pages. */
+      fetch('https://taller-chat.ia-pablo-agencia.workers.dev/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: conversationHistory, sessionId })
